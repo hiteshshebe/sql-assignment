@@ -1,0 +1,13 @@
+USE SPJ;
+select pname,color from P where city ='london';
+select * from s where city='london';
+select * from s where city='paris' or city='athens';
+select * from s where city='athens';
+select pname as `part name`,weight from P where weight>12 or weight<14;
+select * from s where status>=20;
+select * from s where not city='london';
+select distinct city from s;
+select *from s order by city;
+select * from P order by city,pname;
+select * from s where status>=10 or status<=20;
+select pname,weight from P where weight>=10 or weight<=15;

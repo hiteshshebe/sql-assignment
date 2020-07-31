@@ -1,0 +1,16 @@
+use hr;
+select d.DEPARTMENT_NAME,e.FIRST_NAME from departments d join employees e on d.MANAGER_ID=e.MANAGER_ID;
+select d.DEPARTMENT_NAME,concat(e.FIRST_NAME,'  ',e.LAST_NAME) as name,l.CITY from departments d inner join employees e on d.MANAGER_ID=e.MANAGER_ID inner join locations as l  on d.location_id=l.location_id order by d.department_name;
+select d.DEPARTMENT_NAME,l.CITY,c.country_name FROM departments as d inner join locations l on d.location_id=l.location_id inner join countries as c on c.country_id=l.country_id;
+select j.job_title,DEPARTMENT_NAME,last_name from employees e inner join departments d on d.department_id=e.department_id inner join jobs j on j.job_id=e.job_id  where year(e.hire_date)>1993 and year(e.hire_date)<1998;
+select avg(salary),JOB_TITLE FROM employees e inner join jobs j on j.job_id=e.job_id group by job_title;
+select j.job_title,concat(e.first_name,' ',e.last_name),j.max_salary-e.salary diff,e.salary from jobs as j inner join employees e on j.job_id=e.job_id;
+select last_name,job_title,commission_pct from employees e inner join jobs j on j.job_id=e.job_id join departments d on d.department_id=e.department_id where e.department_id=30 and commission_pct>0.00;
+select e.first_name,j.job_title,j.min_salary,j.max_salary,e.salary from jobs j inner join employees e on e.job_id= j.job_id where salary>15000;
+select distinct d.department_name,e.first_name `manager name`,e.salary,e.job_id from employees e inner join departments d on e.department_id=d.department_id join jobs j on e.job_id=j.job_id join employees m  on e.employee_id=m.manager_id where year(e.hire_date)+5>now();
+select e.first_name from employees e join employees ee on e.manager_id=ee.employee_id where e.hire_date < ee.hire_date;
+select concat(e.first_name,' ',e.last_name) name,j.job_title from employees e inner join jobs j on e.job_id=j.job_id inner join job_history jh on jh.employee_id=e.employee_id where timestampdiff(month,jh.start_date,jh.end_date) > 6;
+select concat(e.first_name,' ',e.last_name),c.country_name from employees e inner join departments d on d.department_id=e.department_id inner join locations l on l.location_id=d.location_id inner join countries c on c.country_id=l.country_id;
+select d.department_name,avg(e.salary),count(e.employee_id) from employees e join departments d on e.department_id=d.department_id where e.commission_pct>0.00 group by d.department_id;
+select month(e.hire_date),count(e.employee_id) as ct from employees e inner join departments d on d.department_id=e.department_id inner join locations l on l.location_id=d.location_id where l.city='Sydney' group by month(hire_date) having ct>5;
+select concat(first_name,' ',last_name)as name,job_title,start_date,end_date,commission_pct from employees e join  jobs j on j.job_id=e.job_id join job_history jh on jh.employee_id=e.employee_id where e.commission_pct=null or e.commission_pct=0.00;
